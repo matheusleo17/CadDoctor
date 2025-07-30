@@ -5,7 +5,7 @@ namespace CadDoctor.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Patients : ControllerBase
+    public class DoctorController : ControllerBase
     {
     }
 }

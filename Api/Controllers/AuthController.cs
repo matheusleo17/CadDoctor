@@ -7,5 +7,10 @@ namespace CadDoctor.Api.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        [HttpGet("ping")]
+        public IActionResult Ping()
+        {
+            return Ok("AuthController está funcionando!");
+        }
     }
 }
