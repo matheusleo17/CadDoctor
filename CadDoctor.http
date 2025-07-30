@@ -1,0 +1,6 @@
+@CadDoctor_HostAddress = http://localhost:5207
+
+GET {{CadDoctor_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
