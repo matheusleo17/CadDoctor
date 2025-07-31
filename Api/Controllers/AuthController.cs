@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadDoctor.Api.Controllers
@@ -8,6 +9,7 @@ namespace CadDoctor.Api.Controllers
     public class AuthController : ControllerBase
     {
         [HttpGet("ping")]
+        [Authorize]
         public IActionResult Ping()
         {
             return Ok("AuthController está funcionando!");
