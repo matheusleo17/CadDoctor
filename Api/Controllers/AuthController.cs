@@ -8,5 +8,6 @@ namespace CadDoctor.Api.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        //teste
     }
 }
