@@ -13,6 +13,8 @@ namespace CadDoctor.Domain
         public string? createdBy { get; set; }
         public DateTime? DeletedOn { get; set; }
         public string? DeletedBy   { get; set; }
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
         public ICollection<PatientModel>? Patients { get; set; }
     }
 }
