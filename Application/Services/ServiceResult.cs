@@ -1,8 +1,18 @@
 ﻿public class ServiceResult<T>
 {
-    public bool Success { get; private set; }
-    public string ErrorMessage { get; private set; }
-    public T Data { get; private set; }
+    public bool Success { get;  set; }
+    public string ErrorMessage { get;  set; }
+    public T Data { get;  set; }
+    public  T? Value { get; set; }
+
+    public string AddMessage { get; set; }
+
+    public ServiceResult(bool success, T value, string errorMessage, string AddMessage)
+    {
+        Success = success;
+        Value = value;
+        ErrorMessage = errorMessage;
+    }
 
     public ServiceResult() { }
 
@@ -19,6 +29,15 @@
         Success = false;
         Data = default;
         ErrorMessage = message;
+        return this;
+    }
+
+
+    public ServiceResult(Exception ex)
+    {
+        Success = false;
+        Data = default;
+        ErrorMessage = ex.Message;
         return this;
     }
 }

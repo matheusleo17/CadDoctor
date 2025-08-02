@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Primitives;
 using System.Security.AccessControl;
 
 
@@ -16,9 +17,10 @@ namespace CadDoctor.Application.Services
         private readonly DoctorService _DoctorService;
         private readonly AuthService _AuthService;
 
-        public DoctorService(AppDBContext appContext)
+        public DoctorService(AppDBContext appContext, AuthService authService)
         {
             _AppContext = appContext;
+            _AuthService = authService;
         }
         public async Task<List<DoctorModel>> GetAllDoctorsAsync()
         {
@@ -55,10 +57,19 @@ namespace CadDoctor.Application.Services
 
             if (getUser != null) 
             {
-                return result.Ok(getUser);
+                var token = _AuthService.GenerateToken(email);
+
+                result.Success = true;
+                result.Value = getUser;
+                result.AddMessage = token;
+                return result;
+
             } else
             {
-                return result.Fail("teste");
+                result.Success = false;
+                result.ErrorMessage = "Usuário ou senha inválidos";
+                result.AddMessage = "404";
+                return result;
 
             }
         }

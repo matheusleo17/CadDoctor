@@ -37,14 +37,14 @@ namespace CadDoctor.Api.Controllers
         public async Task <ActionResult<DoctorModel>> Login(string email, string password)
         {
             var result = await _doctorService.LoginAsync(email, password);
+
             if (result.Success== true && result.Data != null)
             {
-                var token = _authService.GenerateToken(email);
 
                 var response = new LoginResponseDTO
                 {
                     Doctor = result.Data,
-                    Token = token
+                    Token = result.AddMessage
                 };
                 return Ok(response);
             }
