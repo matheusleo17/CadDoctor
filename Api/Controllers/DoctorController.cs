@@ -48,7 +48,7 @@ namespace CadDoctor.Api.Controllers
                 };
                 return Ok(response);
             }
-            return BadRequest(); 
+            return BadRequest();  //teste
 
         }
 
