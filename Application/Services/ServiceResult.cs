@@ -32,12 +32,4 @@
         return this;
     }
 
-
-    public ServiceResult(Exception ex)
-    {
-        Success = false;
-        Data = default;
-        ErrorMessage = ex.Message;
-        return this;
-    }
 }

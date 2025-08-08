@@ -73,6 +73,68 @@ namespace CadDoctor.Application.Services
 
             }
         }
+        public async Task<ServiceResult<DoctorModel>> UpdateDoctorAsync(DoctorModel model, Guid? id)
+        {
+            var result = new ServiceResult<DoctorModel>();
+
+
+            var search = _AppContext.doctors.Where(x=>x.Id ==id).FirstOrDefault();
+
+            if (search == null)
+            {
+                result.Success = false;
+                result.ErrorMessage = "Médico não encontrado.";
+                result.AddMessage = "400";
+                return result;
+                
+            }
+
+            foreach (var newvalues in typeof(DoctorModel).GetProperties())
+            {
+                var updateNewValues = newvalues.GetValue(model);
+
+                if (updateNewValues != null)
+                {
+                    newvalues.SetValue(search, updateNewValues);
+                }
+            }
+            var isValid = await _AppContext.SaveChangesAsync();
+
+            if (isValid > 0)
+            {
+                result.Success = true;
+                result.AddMessage = "Medico atualizado com sucesso.";
+                result.Data = search;
+                return result;
+            }
+            else
+            {
+                result.Success = false;
+                result.ErrorMessage = "Erro ao atualizar o medico.";
+                return result;
+            }
+
+        }
+        public async Task<ServiceResult<string>> RemoveDoctor(Guid id)
+        {
+            var result = new ServiceResult<string>();
+
+            var doctorByid = _AppContext.doctors.Where(x => x.Id == id).FirstOrDefault();
+            if (doctorByid != null)
+            {
+                _AppContext.Remove(doctorByid);
+                await _AppContext.SaveChangesAsync();
+                result.Success= true;
+                result.AddMessage = "Medico deletado da Base";
+                return result;
+            }
+            else
+            {
+                result.ErrorMessage = "Medico não encontrado na base.";
+                result.Success = false;
+                return result;
+            }
+        }
 
     }
 }

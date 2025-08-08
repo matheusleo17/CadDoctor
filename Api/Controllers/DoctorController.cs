@@ -38,18 +38,17 @@ namespace CadDoctor.Api.Controllers
         {
             var result = await _doctorService.LoginAsync(email, password);
 
-            if (result.Success== true && result.Data != null)
+            if (result.Success== true && result.Value != null)
             {
 
                 var response = new LoginResponseDTO
                 {
-                    Doctor = result.Data,
+                    Doctor = result.Value,
                     Token = result.AddMessage
                 };
                 return Ok(response);
             }
-            return BadRequest();  //teste
-
+            return BadRequest();  
         }
 
         [HttpPost]
@@ -62,6 +61,25 @@ namespace CadDoctor.Api.Controllers
             {
                 return Ok(result.Data ); 
             } else if (result.Success == false)
+            {
+                return BadRequest(result.ErrorMessage);
+
+            }
+
+            return BadRequest(result.ErrorMessage);
+
+        }
+        [HttpPost]
+        [Route("UpdateDoctor")]
+        public async Task<ActionResult<DoctorModel>> UpdateDoctor(DoctorModel model, Guid? id)
+        {
+            var result = await _doctorService.UpdateDoctorAsync(model, id);
+
+            if (result.Success && result.Data != null)
+            {
+                return Ok(result.Data);
+            }
+            else if (result.Success == false)
             {
                 return BadRequest(result.ErrorMessage);
 

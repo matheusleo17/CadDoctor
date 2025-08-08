@@ -10,6 +10,7 @@ namespace CadDoctor.Application.Interfaces
         Task<List<DoctorModel>> GetAllDoctorsAsync();
         Task<ServiceResult<DoctorModel>> InsertUserDoctor(DoctorModel model);
         Task<ServiceResult<DoctorModel>> LoginAsync(string login, string password);
+        Task<ServiceResult<DoctorModel>> UpdateDoctorAsync(DoctorModel model, Guid? id);
 
     }
 }
