@@ -70,6 +70,7 @@ namespace CadDoctor.Api.Controllers
 
         }
         [HttpPost]
+        [Authorize]
         [Route("UpdateDoctor")]
         public async Task<ActionResult<DoctorModel>> UpdateDoctor(DoctorModel model, Guid? id)
         {
