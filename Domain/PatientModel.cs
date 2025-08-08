@@ -13,9 +13,8 @@ namespace CadDoctor.Domain
         public DateTime CreatedOn   { get; set; }
         public string?  createdBy { get; set; }
         public DateTime? DeletedOn { get; set; }
+        public string? DeletedBy {  get; set; }
         public Guid DoctorId { get; set; }
-
-        // Navigation property
         public DoctorModel? Doctor { get; set; }
     }
 }
