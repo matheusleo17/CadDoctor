@@ -98,5 +98,22 @@ namespace CadDoctor.Api.Controllers
             var entity = await _doctorService.GetAllDoctorsAsync();
             return Ok(entity);
         }
+        [HttpDelete]
+        [Authorize]
+        [Route("RemoveDoctor")]
+        public async Task<ActionResult<string>> RemoveDoctor(Guid id)
+        {
+            var result = await _doctorService.RemoveDoctor(id);
+            if (result.Success == false)
+            {
+                return BadRequest(result);
+            }
+            else {
+                return Ok(result);
+            }
+
+                
+        }
+
     }
 }
