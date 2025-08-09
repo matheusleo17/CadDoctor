@@ -6,7 +6,7 @@ namespace CadDoctor.Application.Interfaces
     {
 
         Task<ServiceResult<PatientModel>> CreatePatientAsync(PatientModel entity);
-        Task<ServiceResult<List<PatientModel>>> GetAllDoctorsAsync();
+        Task<ServiceResult<List<PatientModel>>> GetAllPatientsAsync(Guid? id);
         Task<ServiceResult<string>> UpdatePatientAsync(PatientModel entity, Guid id);
         Task<ServiceResult<string>> RemovePatientAsync(Guid id);
     }

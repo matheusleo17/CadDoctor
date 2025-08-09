@@ -37,9 +37,9 @@ namespace CadDoctor.Api.Controllers
         [HttpGet]
         [Route("GetDoctors")]
         [Authorize]
-        public async Task<ServiceResult<List<PatientModel>>> GetDoctors()
+        public async Task<ServiceResult<List<PatientModel>>> GetDoctors(Guid? id)
         {
-            var result = await _patientService.GetAllDoctorsAsync();
+            var result = await _patientService.GetAllPatientsAsync(id);
             return result;
         }
         [HttpGet]

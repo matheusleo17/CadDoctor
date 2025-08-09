@@ -3,6 +3,7 @@ using CadDoctor.Domain;
 using CadDoctor.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Runtime.InteropServices.Marshalling;
 
 namespace CadDoctor.Application.Services
 {
@@ -42,27 +43,51 @@ namespace CadDoctor.Application.Services
             }
 
         }
-        public async Task<ServiceResult<List<PatientModel>>> GetAllDoctorsAsync()
+        public async Task<ServiceResult<List<PatientModel>>> GetAllPatientsAsync(Guid? id)
         {
             var result = new ServiceResult<List<PatientModel>>();
-            var allDoctors = _appDBContext.patients.Where(x => x.DeletedBy == null && x.DeletedOn == null).ToList();
-
-            if (allDoctors ==null)
+            if (id != null)
             {
-                result.Success = false;
-                result.ErrorMessage = "Nenhum medico encontrado na base";
-                result.StateCode = "200";
-                return result;
+                var getPatient = _appDBContext.patients.Where(x => x.Id == id).FirstOrDefault();
+                if (getPatient != null) {
+
+                    result.Success = true;
+                    result.Value =  new List<PatientModel> { getPatient};
+                    result.StateCode = "200";
+                    return result;
+                }
+                else
+                {
+                    result.Success = false;
+                    result.ErrorMessage = "Nenhum Paciente encontrado com esse Id";
+                    result.StateCode = "200";
+                    return result;
+                }
+
+
             }
             else
             {
-                result.Success = true;
-                result.Value = allDoctors;
-                result.StateCode = "200";
-                return result;
+                var allDoctors = _appDBContext.patients.Where(x => x.DeletedBy == null && x.DeletedOn == null).ToList();
 
+                if (allDoctors == null)
+                {
+                    result.Success = false;
+                    result.ErrorMessage = "Nenhum paciente encontrado na base";
+                    result.StateCode = "200";
+                    return result;
+                }
+                else
+                {
+                    result.Success = true;
+                    result.Value = allDoctors;
+                    result.StateCode = "200";
+                    return result;
+
+                }
             }
         }
+            
         public async Task<ServiceResult<string>>UpdatePatientAsync(PatientModel entity, Guid id)
         {
             var result = new ServiceResult<string>();

@@ -22,10 +22,50 @@ namespace CadDoctor.Application.Services
             _AppContext = appContext;
             _AuthService = authService;
         }
-        public async Task<List<DoctorModel>> GetAllDoctorsAsync()
+        public async Task<ServiceResult<List<DoctorModel>>> GetAllDoctorsAsync(Guid? id)
         {
-            var getdoctors = await _AppContext.doctors.ToListAsync();
-            return getdoctors;
+            var result = new ServiceResult<List<DoctorModel>>();
+            if (id != null)
+            {
+                var getDoctors = _AppContext.doctors.Where(x => x.Id == id).FirstOrDefault();
+                if (getDoctors != null)
+                {
+
+                    result.Success = true;
+                    result.Value = new List<DoctorModel> { getDoctors };
+                    result.StateCode = "200";
+                    return result;
+                }
+                else
+                {
+                    result.Success = false;
+                    result.ErrorMessage = "Nenhum Medico encontrado com esse Id";
+                    result.StateCode = "200";
+                    return result;
+                }
+
+
+            }
+            else
+            {
+                var allDoctors = _AppContext.doctors.Where(x => x.DeletedBy == null && x.DeletedOn == null).ToList();
+
+                if (allDoctors == null)
+                {
+                    result.Success = false;
+                    result.ErrorMessage = "Nenhum Medico encontrado na base";
+                    result.StateCode = "200";
+                    return result;
+                }
+                else
+                {
+                    result.Success = true;
+                    result.Value = allDoctors;
+                    result.StateCode = "200";
+                    return result;
+
+                }
+            }
         }
         public async Task<ServiceResult<DoctorModel>> InsertUserDoctor(DoctorModel model)
         {

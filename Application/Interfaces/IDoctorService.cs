@@ -7,7 +7,7 @@ namespace CadDoctor.Application.Interfaces
 {
     public interface IDoctorService
     {
-        Task<List<DoctorModel>> GetAllDoctorsAsync();
+        Task<ServiceResult<List<DoctorModel>>> GetAllDoctorsAsync(Guid? id);
         Task<ServiceResult<DoctorModel>> InsertUserDoctor(DoctorModel model);
         Task<ServiceResult<DoctorModel>> LoginAsync(string login, string password);
         Task<ServiceResult<DoctorModel>> UpdateDoctorAsync(DoctorModel model, Guid? id);

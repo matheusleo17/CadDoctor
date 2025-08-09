@@ -94,9 +94,9 @@ namespace CadDoctor.Api.Controllers
         [HttpGet]
         [Authorize]
         [Route("getAllDoctors")]
-        public async Task<ActionResult<List<DoctorModel>>> GetAllDoctors()
+        public async Task<ActionResult<List<DoctorModel>>> GetAllDoctors(Guid? id)
         {
-            var entity = await _doctorService.GetAllDoctorsAsync();
+            var entity = await _doctorService.GetAllDoctorsAsync(id);
             return Ok(entity);
         }
         [HttpDelete]
