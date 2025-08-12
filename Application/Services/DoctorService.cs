@@ -14,7 +14,6 @@ namespace CadDoctor.Application.Services
     public class DoctorService : ControllerBase, IDoctorService
     {
         private readonly AppDBContext _AppContext;
-        private readonly DoctorService _DoctorService;
         private readonly AuthService _AuthService;
 
         public DoctorService(AppDBContext appContext, AuthService authService)
@@ -75,7 +74,19 @@ namespace CadDoctor.Application.Services
             {
                 if (model.Cpf != null)
                 {
-                    _AppContext.doctors.Add(model);
+                    if (model.Password != null)
+                    {
+                        var HashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
+                        model.Password = HashedPassword;
+
+                    } else
+                    {
+                        result.AddMessage = "A senha não pode ser nula.";
+                        result.Success = false;
+                        result.StateCode = "400";
+                        return result;
+                    }
+                        _AppContext.doctors.Add(model);
                     await _AppContext.SaveChangesAsync();
                     return result.Ok(model);
                 }else
@@ -94,8 +105,9 @@ namespace CadDoctor.Application.Services
             var result = new ServiceResult<DoctorModel>();
 
             var getUser = _AppContext.doctors.Where(_ => _.Email == email && _.Password == password).FirstOrDefault();
+            bool senhaValida = BCrypt.Net.BCrypt.Verify(password, getUser?.Password);
 
-            if (getUser != null) 
+            if (getUser != null && senhaValida == true) 
             {
                 var token = _AuthService.GenerateToken(email);
 

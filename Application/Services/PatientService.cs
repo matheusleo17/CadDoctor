@@ -10,12 +10,10 @@ namespace CadDoctor.Application.Services
     public class PatientService : ControllerBase, IPatientService
     {
         private readonly AppDBContext _appDBContext;
-        private readonly PatientService _patientService;
          
-        public PatientService (AppDBContext appDBContext, PatientService patientService)
+        public PatientService (AppDBContext appDBContext)
         {
             _appDBContext = appDBContext;
-            _patientService = patientService;
         }
 
 

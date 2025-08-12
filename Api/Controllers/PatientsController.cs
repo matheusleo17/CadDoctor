@@ -13,8 +13,8 @@ namespace CadDoctor.Api.Controllers
     public class PatientsController : ControllerBase
     {
         private readonly AppDBContext _appContext;
-        private readonly PatientService _patientService;
-        public PatientsController(AppDBContext appContext, PatientService patientService)
+        private readonly IPatientService _patientService;
+        public PatientsController(AppDBContext appContext, IPatientService patientService)
         {
             _appContext = appContext;
             _patientService = patientService;

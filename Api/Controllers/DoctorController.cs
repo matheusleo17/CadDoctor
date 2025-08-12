@@ -20,9 +20,9 @@ namespace CadDoctor.Api.Controllers
     {
         private readonly AppDBContext _appDBContext;
         private readonly IDoctorService _doctorService;
-        private readonly AuthService _authService;
+        private readonly IAuthService _authService;
 
-        public DoctorController (AppDBContext appContext, IDoctorService doctorService, AuthService authService)
+        public DoctorController (AppDBContext appContext, IDoctorService doctorService, IAuthService authService)
         {
             _appDBContext = appContext;
             _doctorService = doctorService;
