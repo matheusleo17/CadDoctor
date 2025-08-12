@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace CadDoctor.Domain
 {
@@ -15,6 +16,6 @@ namespace CadDoctor.Domain
         public string? DeletedBy   { get; set; }
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
-        public ICollection<PatientModel>? Patients { get; set; }
+
     }
 }
