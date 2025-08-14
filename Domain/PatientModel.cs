@@ -19,6 +19,8 @@ namespace CadDoctor.Domain
         public Guid DoctorId { get; set; }
         [JsonIgnore]
         public DoctorModel? Doctor { get; set; }
+        [JsonIgnore]
+
         public ICollection<AppointmentsModel>? Appointments { get; set; }
 
     }

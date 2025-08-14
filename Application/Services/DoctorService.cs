@@ -104,7 +104,13 @@ namespace CadDoctor.Application.Services
         {
             var result = new ServiceResult<DoctorModel>();
 
-            var getUser = _AppContext.doctors.Where(_ => _.Email == email && _.Password == password).FirstOrDefault();
+            var getUser = _AppContext.doctors.Where(_ => _.Email == email).FirstOrDefault();
+            if (getUser == null)
+            {
+                result.Success = false;
+                result.AddMessage = "Usuário não encontrado.";
+                return result;
+            }
             bool senhaValida = BCrypt.Net.BCrypt.Verify(password, getUser?.Password);
 
             if (getUser != null && senhaValida == true) 
