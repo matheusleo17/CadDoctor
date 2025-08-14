@@ -1,4 +1,6 @@
-﻿namespace CadDoctor.Domain
+﻿using System.Text.Json.Serialization;
+
+namespace CadDoctor.Domain
 {
     public class AppointmentsModel
     {
@@ -11,5 +13,12 @@
         public string? createdBy { get; set; }
         public DateTime? DeletedOn { get; set; }
         public string? DeletedBy { get; set; }
+        public Guid DoctorId { get; set; }
+        [JsonIgnore]
+        public DoctorModel? Doctor { get; set; }
+        public Guid PatientId { get; set; }
+        [JsonIgnore]
+        public PatientModel? Patient { get; set; }
+
     }
 }
