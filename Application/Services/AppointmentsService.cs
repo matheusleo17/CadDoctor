@@ -71,7 +71,7 @@ namespace CadDoctor.Application.Services
 
                    _AppContext.appointments.Add(model);
                    await _AppContext.SaveChangesAsync();
-                   return result.Ok(model);
+                    return result.Ok(model);
 
             }
             catch (Exception ex)
