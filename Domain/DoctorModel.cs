@@ -6,7 +6,7 @@ namespace CadDoctor.Domain
 {
     public class DoctorModel
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string? Name { get; set; }
         public string? MobileNumber { get; set; }
         public string? Cpf { get; set; }

@@ -5,7 +5,7 @@ namespace CadDoctor.Domain
 {
     public class PatientModel
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string? Name { get; set; }
         public string? lastName { get; set; }
         public DateTime BirthDate { get; set; }

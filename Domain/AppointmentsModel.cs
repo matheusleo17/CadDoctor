@@ -4,7 +4,7 @@ namespace CadDoctor.Domain
 {
     public class AppointmentsModel
     {
-        public Guid id { get; set; }
+        public Guid id { get; set; } = Guid.NewGuid();
         public string? name { get; set; }
         public string? description { get; set; }
         public DateTime? date { get; set; }
