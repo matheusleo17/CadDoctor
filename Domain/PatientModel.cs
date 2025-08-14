@@ -23,5 +23,3 @@ namespace CadDoctor.Domain
 
     }
 }
-public ICollection<AppointmentsModel>? Appointments { get; set; }
-public ICollection<AppointmentsModel>? Appointments { get; set; }
