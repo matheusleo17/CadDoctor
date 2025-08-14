@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using CadDoctor.Domain;
+using System.Data;
 using System.Text.Json.Serialization;
 
 namespace CadDoctor.Domain
@@ -18,5 +19,9 @@ namespace CadDoctor.Domain
         public Guid DoctorId { get; set; }
         [JsonIgnore]
         public DoctorModel? Doctor { get; set; }
+        public ICollection<AppointmentsModel>? Appointments { get; set; }
+
     }
 }
+public ICollection<AppointmentsModel>? Appointments { get; set; }
+public ICollection<AppointmentsModel>? Appointments { get; set; }
